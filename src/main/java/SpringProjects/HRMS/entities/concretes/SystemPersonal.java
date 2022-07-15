@@ -4,12 +4,15 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
-import SpringProjects.HRMS.entities.abstracts.WorkableUser;
+import SpringProjects.HRMS.entities.abstracts.User;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -18,14 +21,10 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper=false)
-@Table(name="system_personal")
-public class SystemPersonal extends WorkableUser {
-    private Date startDayOfWork;
-    
-    public SystemPersonal() {}
-
-    public SystemPersonal(Date startDayOfWork, String name, String surname, String tckn, Date birthDate, long id, String email, String password) {
-        super(name, surname, tckn, birthDate, id, email, password);
-        this.startDayOfWork = startDayOfWork;
-    } 
+@Table(name="system_personals")
+@AllArgsConstructor
+@NoArgsConstructor
+public class SystemPersonal extends User {
+    @Column(name="start_date_of_work")
+    private Date startDateOfWork; 
 }

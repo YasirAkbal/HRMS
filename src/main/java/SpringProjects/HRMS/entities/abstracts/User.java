@@ -5,31 +5,40 @@
 package SpringProjects.HRMS.entities.abstracts;
 
 import SpringProjects.HRMS.entities.concretes.Permission;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 /**
  *
  * @author yasir
  */
-@Data
+
 @Entity
-@Table(name="user")
-public abstract class User {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="users")
+public abstract class User implements Serializable {
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //burada bug var, düzelteceğim
     @Id
-    @GeneratedValue
     @Column(name="id")
-    private long id;
+    private Long id;
     
     @Column(name="email")
     private String email;
@@ -45,11 +54,4 @@ public abstract class User {
     )
     private Set<Permission> permissions = new HashSet<>();*/
     
-    public User() {}
-
-    public User(long id, String email, String password) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-    }
 }

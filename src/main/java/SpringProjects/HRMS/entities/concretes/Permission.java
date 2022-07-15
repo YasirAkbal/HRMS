@@ -13,7 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -22,6 +24,8 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="permissions")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Permission {
     @Id
     @GeneratedValue
@@ -33,11 +37,4 @@ public class Permission {
     
     /*@ManyToMany(mappedBy = "permissions")
     private Set<User> users = new HashSet<>();*/
-    
-    public Permission() {}
-
-    public Permission(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }

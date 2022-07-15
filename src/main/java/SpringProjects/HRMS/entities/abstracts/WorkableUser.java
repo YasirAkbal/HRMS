@@ -6,20 +6,26 @@ package SpringProjects.HRMS.entities.abstracts;
 
 import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author yasir
  */
-
 @Data
 @Entity
 @EqualsAndHashCode(callSuper=false)
-@Table(name="workable")
+@Table(name="workable_users")
+@AllArgsConstructor
+@NoArgsConstructor
+@PrimaryKeyJoinColumn(name = "user_id")
 public abstract class WorkableUser extends User {
     @Column(name="name")
     private String name;
@@ -32,16 +38,4 @@ public abstract class WorkableUser extends User {
     
     @Column(name="birth_date")
     private Date birthDate;
-    
-    public WorkableUser() {
-        super();
-    }
-
-    public WorkableUser(String name, String surname, String tckn, Date birthDate, long id, String email, String password) {
-        super(id, email, password);
-        this.name = name;
-        this.surname = surname;
-        this.tckn = tckn;
-        this.birthDate = birthDate;
-    }
 }

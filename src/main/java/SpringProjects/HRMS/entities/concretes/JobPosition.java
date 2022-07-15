@@ -9,10 +9,13 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -21,10 +24,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="job_positions")
+@AllArgsConstructor
+@NoArgsConstructor
 public class JobPosition {
     @Id
-    @GeneratedValue
     @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
     @Column(name="name")
@@ -32,11 +37,4 @@ public class JobPosition {
     
     /*@ManyToMany(mappedBy = "jobPositions")
     private Set<JobSeeker> jobSeekers = new HashSet<>();*/
-    
-    public JobPosition() {}
-
-    public JobPosition(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }

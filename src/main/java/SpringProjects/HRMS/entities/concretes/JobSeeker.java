@@ -5,39 +5,31 @@
 package SpringProjects.HRMS.entities.concretes;
 
 import SpringProjects.HRMS.entities.abstracts.WorkableUser;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author yasir
  */
-@Entity
+@EqualsAndHashCode(callSuper =false)
 @Data
-@EqualsAndHashCode(callSuper=false)
-@Table(name="job_seeker")
+@Entity
+@Table(name="job_seekers")
+@AllArgsConstructor
+@PrimaryKeyJoinColumn(name="workable_user_id")
 public class JobSeeker extends WorkableUser {
+
     /*@ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
         name = "JobSeekerPosition", 
         joinColumns = { @JoinColumn(name = "jobseeker_id") }, 
         inverseJoinColumns = { @JoinColumn(name = "position_id") }
     )
-    private Set<JobPosition> jobPositions = new HashSet<>();*/
-
-    public JobSeeker() {}
-
-    public JobSeeker(String name, String surname, String tckn, Date birthDate, long id, String email, String password) {
-        super(name, surname, tckn, birthDate, id, email, password);
-    }
-    
+    private Set<JobPosition> jobPositions = new HashSet<>();*/     
 }

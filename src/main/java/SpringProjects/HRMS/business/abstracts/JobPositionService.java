@@ -6,11 +6,15 @@ package SpringProjects.HRMS.business.abstracts;
 
 import SpringProjects.HRMS.entities.concretes.JobPosition;
 import java.util.List;
+import springprojects.HRMS.core.utilities.results.DataResult;
+import springprojects.HRMS.core.utilities.results.Result;
 
 /**
  *
  * @author yasir
  */
 public interface JobPositionService {
-    public List<JobPosition> getAll();
+    public DataResult<List<JobPosition>> getAll();
+    public Result addJobPosition(JobPosition jobPosition);
+    public DataResult<JobPosition> findById(long id);
 }
