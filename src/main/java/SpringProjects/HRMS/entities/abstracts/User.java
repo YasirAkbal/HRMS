@@ -4,7 +4,6 @@
  */
 package SpringProjects.HRMS.entities.abstracts;
 
-import SpringProjects.HRMS.entities.concretes.Permission;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -46,12 +45,6 @@ public abstract class User implements Serializable {
     @Column(name="password")
     private String password;
     
-    /*@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "UserPermission", 
-        joinColumns = { @JoinColumn(name = "user_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "permission_id") }
-    )
-    private Set<Permission> permissions = new HashSet<>();*/
-    
+    @Column(name="mail_confirmed")
+    private boolean isMailConfirmed;
 }

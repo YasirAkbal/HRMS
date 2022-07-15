@@ -4,14 +4,14 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
-import SpringProjects.HRMS.entities.abstracts.User;
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,20 +21,21 @@ import lombok.NoArgsConstructor;
  *
  * @author yasir
  */
-@Data
+@Table(name="cities")
 @Entity
-@Table(name="permissions")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Permission {
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisements"})
+public class City {
     @Id
-    @GeneratedValue
-    @Column(name="user_id")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
     
     @Column(name="name")
     private String name;
     
-    /*@ManyToMany(mappedBy = "permissions")
-    private Set<User> users = new HashSet<>();*/
+    @OneToMany(mappedBy="city")
+    List<JobAdvertisement> jobAdvertisements;
 }

@@ -5,8 +5,11 @@
 package SpringProjects.HRMS.entities.concretes;
 
 import SpringProjects.HRMS.entities.abstracts.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -25,6 +28,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name="user_id")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisements"})
 public class Employer extends User {
     @Column(name="company_name")
     private String companyName;
@@ -34,4 +38,10 @@ public class Employer extends User {
     
     @Column(name="phone")
     private String phone;
+    
+    @Column(name="confirmed")
+    private boolean confirmed;
+    
+    @OneToMany(mappedBy="employer")
+    private List<JobAdvertisement> jobAdvertisements;
 }

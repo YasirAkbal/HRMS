@@ -4,13 +4,13 @@
  */
 package SpringProjects.HRMS.dataAccess.abstracts;
 
-import SpringProjects.HRMS.entities.concretes.Permission;
+import SpringProjects.HRMS.entities.concretes.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author yasir
  */
-public interface PermissionDao extends JpaRepository<Permission, Integer> {
+public interface CityDao extends JpaRepository<City, Integer> {
     
 }

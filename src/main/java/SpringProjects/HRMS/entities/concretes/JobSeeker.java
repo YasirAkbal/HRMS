@@ -5,6 +5,7 @@
 package SpringProjects.HRMS.entities.concretes;
 
 import SpringProjects.HRMS.entities.abstracts.WorkableUser;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -24,12 +25,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @PrimaryKeyJoinColumn(name="workable_user_id")
 public class JobSeeker extends WorkableUser {
-
-    /*@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "JobSeekerPosition", 
-        joinColumns = { @JoinColumn(name = "jobseeker_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "position_id") }
-    )
-    private Set<JobPosition> jobPositions = new HashSet<>();*/     
+    @Column(name="mernis_confirmed")
+    private boolean isMernisConfirmed;
 }
