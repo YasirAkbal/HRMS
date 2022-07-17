@@ -3,14 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package SpringProjects.HRMS.entities.concretes;
-import SpringProjects.HRMS.core.entities.abstracts.User;
+
+import SpringProjects.HRMS.entities.abstracts.Company;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -23,23 +22,19 @@ import lombok.NoArgsConstructor;
  *
  * @author yasir
  */
+
 @Data
 @Entity
 @EqualsAndHashCode(callSuper=false)
-@Table(name="employers")
+@Table(name="registered_companies")
 @AllArgsConstructor
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name="user_id")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisements"})
-public class Employer extends User {
-    @Column(name="confirmed")
-    private boolean isConfirmed;
-    
-    @ManyToOne
-    @JoinColumn(name="registered_company_id", referencedColumnName="company_id")
-    private RegisteredCompany registeredCompany;
+@PrimaryKeyJoinColumn(name = "company_id")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","employers"})
+public class RegisteredCompany extends Company {
     
     @JsonIgnore
-    @OneToMany(mappedBy="employer")
-    private List<JobAdvertisement> jobAdvertisements;
+    @OneToMany(mappedBy = "registeredCompany", fetch = FetchType.LAZY)
+    private List<Employer> employers;
+    
 }

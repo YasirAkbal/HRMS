@@ -4,10 +4,9 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
-import SpringProjects.HRMS.core.entities.abstracts.User;
-import java.util.Date;
-import javax.persistence.Column;
+import SpringProjects.HRMS.entities.abstracts.Company;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,13 +17,13 @@ import lombok.NoArgsConstructor;
  *
  * @author yasir
  */
+
 @Data
 @Entity
 @EqualsAndHashCode(callSuper=false)
-@Table(name="system_personals")
+@Table(name="unregistered_companies")
 @AllArgsConstructor
-@NoArgsConstructor
-public class SystemPersonal extends User {
-    @Column(name="start_date_of_work")
-    private Date startDateOfWork; 
+@PrimaryKeyJoinColumn(name = "company_id")
+public class UnregisteredCompany extends Company {
+    
 }

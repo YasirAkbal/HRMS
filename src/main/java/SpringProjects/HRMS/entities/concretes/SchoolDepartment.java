@@ -4,7 +4,6 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,19 +25,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisements","schools"})
-public class City {
+public class SchoolDepartment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private int id;
     
     @Column(name="name")
     private String name;
     
-    @OneToMany(mappedBy="city")
-    List<JobAdvertisement> jobAdvertisements;
-    
-    @OneToMany(mappedBy="city")
-    List<School> schools;
+    @OneToMany(mappedBy="schoolDepartment")
+    private List<JobSeekerSchool> jobSeekerSchoolHistory;
 }

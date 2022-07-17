@@ -6,6 +6,7 @@ package SpringProjects.HRMS.api.controllers;
 
 import SpringProjects.HRMS.business.abstracts.EmployerService;
 import SpringProjects.HRMS.entities.concretes.Employer;
+import SpringProjects.HRMS.entities.dtos.EmployerWithCompanyIdNotCompany;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,8 +36,13 @@ public class EmployersController {
         return this.employerService.getAll();
     }
     
-    @PostMapping("/add")
-    public Result addJobPosition(@RequestBody Employer employer) {
-        return this.employerService.addEmployer(employer);
+    @PostMapping("/addEmployerWithNewCompany")
+    public Result addEmployerWithNewCompany(@RequestBody Employer employer) {
+        return this.employerService.addEmployerWithNewCompany(employer);
+    }
+    
+    @PostMapping("/addEmployerWithExistingCompany")
+    public Result addEmployerWithExistingCompany(@RequestBody EmployerWithCompanyIdNotCompany employerDto) {
+        return this.employerService.addEmployerWithExistingCompany(employerDto);
     }
 }

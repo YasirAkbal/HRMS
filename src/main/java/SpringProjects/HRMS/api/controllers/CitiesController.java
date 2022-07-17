@@ -6,6 +6,7 @@ package SpringProjects.HRMS.api.controllers;
 
 import SpringProjects.HRMS.business.abstracts.CityService;
 import SpringProjects.HRMS.entities.concretes.City;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,7 @@ public class CitiesController {
     }
     
     @GetMapping("getAll")
-    public DataResult getAll() {
+    public DataResult<List<City>> getAll() {
         return cityService.getAll();
     }
 }

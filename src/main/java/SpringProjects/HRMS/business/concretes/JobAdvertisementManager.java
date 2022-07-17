@@ -8,9 +8,11 @@ import SpringProjects.HRMS.business.abstracts.JobAdvertisementService;
 import SpringProjects.HRMS.dataAccess.abstracts.JobAdvertisementDao;
 import SpringProjects.HRMS.entities.concretes.JobAdvertisement;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springprojects.HRMS.core.utilities.results.DataResult;
+import springprojects.HRMS.core.utilities.results.ErrorResult;
 import springprojects.HRMS.core.utilities.results.Result;
 import springprojects.HRMS.core.utilities.results.SuccessDataResult;
 import springprojects.HRMS.core.utilities.results.SuccessResult;
@@ -40,13 +42,27 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     }
 
     @Override
-    public DataResult<List<JobAdvertisement>> getByEmployer_EmployerId(long employerId) {
+    public DataResult<List<JobAdvertisement>> getByEmployer_EmployerId(long employerId) { 
         return new SuccessDataResult<>(jobAdvertisementDao.getByEmployer_Id(employerId));
     }
 
     @Override
     public Result addJobAdvertisement(JobAdvertisement jobAdvertisement) {
         jobAdvertisementDao.save(jobAdvertisement);
+        return new SuccessResult();
+    }
+
+    @Override
+    public Result setActiveStatusFalse(long id) {
+        Optional<JobAdvertisement> jobAdvertisementOpt = jobAdvertisementDao.findById(id);
+        
+        if(jobAdvertisementOpt.isEmpty())
+            return new ErrorResult("Geçersiz id değeri.");
+        
+        JobAdvertisement jobAdvertisement = jobAdvertisementOpt.get();
+        jobAdvertisement.setActive(false);
+        jobAdvertisementDao.save(jobAdvertisement);
+        
         return new SuccessResult();
     }
     

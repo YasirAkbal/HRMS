@@ -6,6 +6,7 @@ package SpringProjects.HRMS.dataAccess.abstracts;
 
 import SpringProjects.HRMS.entities.concretes.JobAdvertisement;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -16,4 +17,5 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
     public List<JobAdvertisement> getByIsActiveTrue();
     public List<JobAdvertisement> getAllByOrderByCreateDateDesc();
     public List<JobAdvertisement> getByEmployer_Id(long employerId);
+    public Optional<JobAdvertisement> findById(long id);
 }

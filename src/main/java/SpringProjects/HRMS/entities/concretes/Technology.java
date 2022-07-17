@@ -4,14 +4,13 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,8 +25,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisements","schools"})
-public class City {
+public class Technology {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -36,9 +34,6 @@ public class City {
     @Column(name="name")
     private String name;
     
-    @OneToMany(mappedBy="city")
-    List<JobAdvertisement> jobAdvertisements;
-    
-    @OneToMany(mappedBy="city")
-    List<School> schools;
+    @ManyToMany(mappedBy = "technologies")
+    List<JobSeeker> jobSeekers;
 }

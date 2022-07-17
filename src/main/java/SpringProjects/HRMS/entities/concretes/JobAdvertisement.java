@@ -4,6 +4,8 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
@@ -33,21 +35,28 @@ public class JobAdvertisement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private int id;
+    private long id;
+    
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="position_id")
+    private JobPosition position;
+    
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="city_id")
+    private City city;
+    
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="employer_id")
+    private Employer employer;
     
     @Column(name="title")
     private String title;
     
     @Column(name="definition")
     private String definition;
-    
-    @ManyToOne
-    @JoinColumn(name="position_id")
-    private JobPosition position;
-    
-    @ManyToOne
-    @JoinColumn(name="city_id")
-    private City city;
     
     @Column(name="min_salary")
     private BigDecimal minSalary;
@@ -65,10 +74,6 @@ public class JobAdvertisement {
     @Column(name="create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    
-    @ManyToOne
-    @JoinColumn(name="company_id")
-    private Employer employer;
     
     @Column(name="is_active")
     private boolean isActive;

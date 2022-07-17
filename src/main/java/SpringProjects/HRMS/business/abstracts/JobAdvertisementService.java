@@ -18,4 +18,5 @@ public interface JobAdvertisementService {
     public DataResult<List<JobAdvertisement>> getByIsActiveTrue();
     public DataResult<List<JobAdvertisement>> getAllByOrderByCreateDateDesc();
     public DataResult<List<JobAdvertisement>> getByEmployer_EmployerId(long employerId);
+    public Result setActiveStatusFalse(long id);
 }

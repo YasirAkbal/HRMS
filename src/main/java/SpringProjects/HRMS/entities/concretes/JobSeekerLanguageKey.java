@@ -4,27 +4,25 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
-import SpringProjects.HRMS.core.entities.abstracts.User;
-import java.util.Date;
+import java.io.Serializable;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  *
  * @author yasir
  */
-@Data
-@Entity
-@EqualsAndHashCode(callSuper=false)
-@Table(name="system_personals")
-@AllArgsConstructor
+@Embeddable
 @NoArgsConstructor
-public class SystemPersonal extends User {
-    @Column(name="start_date_of_work")
-    private Date startDateOfWork; 
+@AllArgsConstructor
+@Data
+public class JobSeekerLanguageKey implements Serializable {
+    @Column(name="job_seeker_id")
+    private long jobSeekerId;
+    
+    @Column(name="language_id")
+    private int languageId;
 }

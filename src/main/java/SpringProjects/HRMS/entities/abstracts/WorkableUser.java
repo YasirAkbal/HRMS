@@ -4,6 +4,7 @@
  */
 package SpringProjects.HRMS.entities.abstracts;
 
+import SpringProjects.HRMS.core.entities.abstracts.User;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
