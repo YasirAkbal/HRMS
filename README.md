@@ -1,1 +1,1 @@
-![ERD Diagram](https://prnt.sc/bgFS-TLgVvNj)
+![ERD Diagram](https://i.ibb.co/hMqTFL2/ERD.jpg)
