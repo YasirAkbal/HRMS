@@ -7,7 +7,10 @@ package SpringProjects.HRMS.api.controllers;
 import SpringProjects.HRMS.business.abstracts.JobAdvertisementService;
 import SpringProjects.HRMS.entities.concretes.JobAdvertisement;
 import SpringProjects.HRMS.entities.concretes.JobPosition;
+import SpringProjects.HRMS.entities.dtos.JobAdvertisementCreateDto;
+import SpringProjects.HRMS.entities.mappers.JobAdvertisementMapper;
 import java.util.List;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +31,7 @@ import springprojects.HRMS.core.utilities.results.SuccessResult;
 @RequestMapping("api/jobadvertisements/")
 public class JobAdvertisementsController {
     private JobAdvertisementService jobAdvertisementService;
+    private JobAdvertisementMapper jobAdvertisementMapper = Mappers.getMapper(JobAdvertisementMapper.class);
     
     @Autowired
     public JobAdvertisementsController(JobAdvertisementService jobAdvertisementService) { 
@@ -50,8 +54,9 @@ public class JobAdvertisementsController {
     }
 
     @PostMapping("add")
-    public Result addJobAdvertisement(@RequestBody JobAdvertisement jobAdvertisement) {
-        return jobAdvertisementService.addJobAdvertisement(jobAdvertisement);
+    public Result addJobAdvertisement(@RequestBody JobAdvertisementCreateDto dto) {
+        JobAdvertisement entity = jobAdvertisementMapper.convertToEntity(dto);
+        return jobAdvertisementService.addJobAdvertisement(entity);
     }
     
     @GetMapping("setActiveStatusFalse")

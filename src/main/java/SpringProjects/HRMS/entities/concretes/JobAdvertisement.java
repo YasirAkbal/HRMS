@@ -37,17 +37,14 @@ public class JobAdvertisement {
     @Column(name="id")
     private long id;
     
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="position_id")
     private JobPosition position;
     
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="city_id")
     private City city;
     
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="employer_id")
     private Employer employer;

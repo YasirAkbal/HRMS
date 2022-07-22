@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
  *
  * @author yasir
  */
-@Table(name="job_seeker_experiences")
+@Table(name="job_seekers_experiences")
 @Entity
 @Data
 @AllArgsConstructor
@@ -54,6 +54,6 @@ public class JobSeekerExperience {
     @Column(name="is_still_working")
     private boolean isStillWorking;
     
-    @Column(name="explanation")
+    @Column(name="job_explanation")
     private String explanation;
 }

@@ -4,7 +4,7 @@
  */
 package SpringProjects.HRMS.entities.dtos;
 
-import SpringProjects.HRMS.entities.concretes.Employer;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,10 +14,20 @@ import lombok.NoArgsConstructor;
  * @author yasir
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class EmployerWithCompanyIdNotCompany {
-    private int companyId;
+@AllArgsConstructor
+public class JobSeekerRegisterDto {
+    
+    private String tckn;
+    
+    private String name;
+    
+    private String surname;
+    
     private String email;
+    
     private String password;
+    
+    private Date birthDate;
+    
 }

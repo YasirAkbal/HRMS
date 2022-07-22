@@ -5,7 +5,7 @@
 package SpringProjects.HRMS.dataAccess.abstracts;
 
 import SpringProjects.HRMS.entities.concretes.Employer;
-import SpringProjects.HRMS.entities.dtos.EmployerWithCompanyIdNotCompany;
+import SpringProjects.HRMS.entities.dtos.EmployerGetWithCompanyIdDto;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

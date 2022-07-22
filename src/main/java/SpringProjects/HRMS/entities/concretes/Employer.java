@@ -39,7 +39,6 @@ public class Employer extends User {
     @JoinColumn(name="registered_company_id", referencedColumnName="company_id")
     private RegisteredCompany registeredCompany;
     
-    @JsonIgnore
     @OneToMany(mappedBy="employer")
     private List<JobAdvertisement> jobAdvertisements;
 }

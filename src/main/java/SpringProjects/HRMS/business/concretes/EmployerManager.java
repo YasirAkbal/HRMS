@@ -9,9 +9,13 @@ import SpringProjects.HRMS.dataAccess.abstracts.EmployerDao;
 import SpringProjects.HRMS.dataAccess.abstracts.RegisteredCompanyDao;
 import SpringProjects.HRMS.entities.concretes.Employer;
 import SpringProjects.HRMS.entities.concretes.RegisteredCompany;
-import SpringProjects.HRMS.entities.dtos.EmployerWithCompanyIdNotCompany;
+import SpringProjects.HRMS.entities.dtos.EmployerCreateWithExistingCompanyDto;
+import SpringProjects.HRMS.entities.dtos.EmployerGetWithCompanyIdDto;
+import SpringProjects.HRMS.entities.mappers.EmployerCreateWithExistingCompanyMapper;
+import SpringProjects.HRMS.entities.mappers.EmployerGetWithCompanyIdMapper;
 import java.util.List;
 import java.util.Optional;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springprojects.HRMS.core.utilities.results.DataResult;
@@ -28,6 +32,7 @@ import springprojects.HRMS.core.utilities.results.SuccessResult;
 public class EmployerManager implements EmployerService {
     private EmployerDao employerDao;
     private RegisteredCompanyDao registeredCompanyDao;
+    private EmployerCreateWithExistingCompanyMapper mapper = Mappers.getMapper(EmployerCreateWithExistingCompanyMapper.class);
     
     @Autowired
     public EmployerManager(EmployerDao employerDao, RegisteredCompanyDao registeredCompanyDao) {
@@ -53,20 +58,13 @@ public class EmployerManager implements EmployerService {
     }
 
     @Override
-    public Result addEmployerWithExistingCompany(EmployerWithCompanyIdNotCompany employerDto) {
-        if(employerDao.existsEmployersByEmail(employerDto.getEmail()))
+    public Result addEmployerWithExistingCompany(Employer employer) {
+        if(employerDao.existsEmployersByEmail(employer.getEmail()))
             return new ErrorResult("Aynı Email ile birden fazla hesap açamazsınız.");
         
-        Optional<RegisteredCompany> registeredCompanyOpt = registeredCompanyDao.findById(employerDto.getCompanyId());
+        Optional<RegisteredCompany> registeredCompanyOpt = registeredCompanyDao.findById(employer.getRegisteredCompany().getId());
         if(registeredCompanyOpt.isEmpty())
             return new ErrorResult("Geçersiz şirket id'si.");
-        
-        RegisteredCompany registeredCompany = registeredCompanyOpt.get();
-        
-        Employer employer = new Employer();
-        employer.setEmail(employerDto.getEmail());
-        employer.setPassword(employerDto.getPassword());
-        employer.setRegisteredCompany(registeredCompany);
         
         employerDao.save(employer);
         return new SuccessResult("İşlem başarılı.");

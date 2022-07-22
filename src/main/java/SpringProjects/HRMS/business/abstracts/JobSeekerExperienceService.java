@@ -4,18 +4,16 @@
  */
 package SpringProjects.HRMS.business.abstracts;
 
-import SpringProjects.HRMS.entities.concretes.JobSeeker;
 import SpringProjects.HRMS.entities.concretes.JobSeekerExperience;
 import java.util.List;
 import springprojects.HRMS.core.utilities.results.DataResult;
-import springprojects.HRMS.core.utilities.results.Result;
 
 /**
  *
  * @author yasir
  */
-public interface JobSeekerService {
-    public Result addJobSeeker(JobSeeker jobSeeker);
-    public DataResult<List<JobSeeker>> getAll();
-    public DataResult<List<JobSeekerExperience>> getAllExperiencesByJobSeekerId(Long id);
+public interface JobSeekerExperienceService {
+    public DataResult<List<JobSeekerExperience>> getByJobSeekerId(long jobSeekerId);
+    public DataResult<List<JobSeekerExperience>> getByCompanyId(int companyId);
+    public DataResult<List<JobSeekerExperience>> getByJobPositionId(long jobPositionId);
 }

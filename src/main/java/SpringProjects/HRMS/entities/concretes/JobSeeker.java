@@ -5,6 +5,7 @@
 package SpringProjects.HRMS.entities.concretes;
 
 import SpringProjects.HRMS.entities.abstracts.WorkableUser;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,14 +32,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name="workable_user_id")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","schoolHistory","experiences"})
 public class JobSeeker extends WorkableUser {
     @Column(name="mernis_confirmed")
     private boolean isMernisConfirmed;
         
     @Column(name="pretext")
     private String pretext;
-    
-    
     
     @ManyToMany
     @JoinTable(
@@ -50,15 +50,15 @@ public class JobSeeker extends WorkableUser {
     @ManyToMany
     @JoinTable(
       name = "job_seekers_positions", 
-      joinColumns = @JoinColumn(name = "job_seeker_id"), 
+      joinColumns = @JoinColumn(name = "jobseeker_id"), 
       inverseJoinColumns = @JoinColumn(name = "position_id"))
-    private List<Technology> positions;
+    private List<JobPosition> positions;
     
     @OneToMany(mappedBy="jobSeeker")
     private List<JobSeekerSchool> schoolHistory;
     
-    /*@OneToOne(mappedBy = "jobSeeker")
-    List<JobSeekerLanguage> languages;*/
+    @OneToMany(mappedBy = "jobSeeker")
+    List<JobSeekerLanguage> languages;
     
     @OneToMany(mappedBy = "jobSeeker")
     List<JobSeekerExperience> experiences;

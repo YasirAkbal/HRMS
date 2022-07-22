@@ -7,10 +7,13 @@ package SpringProjects.HRMS.business.concretes;
 import SpringProjects.HRMS.business.abstracts.JobSeekerService;
 import SpringProjects.HRMS.dataAccess.abstracts.JobSeekerDao;
 import SpringProjects.HRMS.entities.concretes.JobSeeker;
+import SpringProjects.HRMS.entities.concretes.JobSeekerExperience;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springprojects.HRMS.core.utilities.results.DataResult;
+import springprojects.HRMS.core.utilities.results.ErrorDataResult;
 import springprojects.HRMS.core.utilities.results.ErrorResult;
 import springprojects.HRMS.core.utilities.results.Result;
 import springprojects.HRMS.core.utilities.results.SuccessDataResult;
@@ -43,5 +46,14 @@ public class JobSeekerManager implements JobSeekerService {
     @Override
     public DataResult<List<JobSeeker>> getAll() {
         return new SuccessDataResult<>(jobSeekerDao.findAll());
+    }
+
+    @Override
+    public DataResult<List<JobSeekerExperience>> getAllExperiencesByJobSeekerId(Long id) {
+        Optional<JobSeeker> jobSeekerOpt = this.jobSeekerDao.getById(id);
+        if(jobSeekerOpt.isEmpty())
+            return new ErrorDataResult<>("Geçersiz job seeker id'si");
+        
+        return new SuccessDataResult<>(jobSeekerOpt.get().getExperiences());
     }
 }

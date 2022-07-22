@@ -15,4 +15,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface JobPositionDao extends JpaRepository<JobPosition, Integer> {
     public Optional<JobPosition> findById(long id);
     public boolean existsJobPositionByName(String name);
+    public boolean existsById(Long id);
 }

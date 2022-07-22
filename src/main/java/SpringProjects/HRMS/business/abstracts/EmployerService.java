@@ -5,7 +5,7 @@
 package SpringProjects.HRMS.business.abstracts;
 
 import SpringProjects.HRMS.entities.concretes.Employer;
-import SpringProjects.HRMS.entities.dtos.EmployerWithCompanyIdNotCompany;
+import SpringProjects.HRMS.entities.dtos.EmployerCreateWithExistingCompanyDto;
 import java.util.List;
 import springprojects.HRMS.core.utilities.results.DataResult;
 import springprojects.HRMS.core.utilities.results.Result;
@@ -16,6 +16,6 @@ import springprojects.HRMS.core.utilities.results.Result;
  */
 public interface EmployerService {
     public Result addEmployerWithNewCompany(Employer employer);
-    public Result addEmployerWithExistingCompany(EmployerWithCompanyIdNotCompany employerDto);
+    public Result addEmployerWithExistingCompany(Employer employer);
     public DataResult<List<Employer>> getAll();
 }
