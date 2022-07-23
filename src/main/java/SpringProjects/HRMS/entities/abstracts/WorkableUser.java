@@ -22,11 +22,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Entity
-@EqualsAndHashCode(callSuper=false)
 @Table(name="workable_users")
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "user_id")
+@EqualsAndHashCode(callSuper = true)
 public abstract class WorkableUser extends User {
     @Column(name="name")
     private String name;

@@ -4,7 +4,12 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +40,7 @@ public class Language {
     @Column(name="name")
     private String name;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "language")
     List<JobSeekerLanguage> jobSeekerLanguages;
 }

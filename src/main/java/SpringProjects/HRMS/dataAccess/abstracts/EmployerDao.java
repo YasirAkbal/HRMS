@@ -5,10 +5,8 @@
 package SpringProjects.HRMS.dataAccess.abstracts;
 
 import SpringProjects.HRMS.entities.concretes.Employer;
-import SpringProjects.HRMS.entities.dtos.EmployerGetWithCompanyIdDto;
-import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -16,8 +14,4 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface EmployerDao extends JpaRepository<Employer, Integer> {
     public boolean existsEmployersByEmail(String email);
-    
-    
-    /*@Query("Select new springlearning.northwinddemo.entities.dtos.Employer() From Category c Inner Join c.products p")
-    Employer saveEmployerWithCompanyId(EmployerWithCompanyIdNotCompany employerDto);*/
 }

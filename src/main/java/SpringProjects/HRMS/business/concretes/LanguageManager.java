@@ -4,9 +4,9 @@
  */
 package SpringProjects.HRMS.business.concretes;
 
-import SpringProjects.HRMS.business.abstracts.CityService;
-import SpringProjects.HRMS.dataAccess.abstracts.CityDao;
-import SpringProjects.HRMS.entities.concretes.City;
+import SpringProjects.HRMS.business.abstracts.LanguageService;
+import SpringProjects.HRMS.dataAccess.abstracts.LanguageDao;
+import SpringProjects.HRMS.entities.concretes.Language;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,23 +20,24 @@ import springprojects.HRMS.core.utilities.results.SuccessResult;
  * @author yasir
  */
 @Service
-public class CityManager implements CityService {
-    private CityDao cityDao;
-    
+public class LanguageManager implements LanguageService {
+
+    private LanguageDao languageDao;
+
     @Autowired
-    public CityManager(CityDao cityDao) {
-        this.cityDao = cityDao;
+    public LanguageManager(LanguageDao languageDao) {
+        this.languageDao = languageDao;
+    }
+    
+    @Override
+    public Result add(Language language) {
+        this.languageDao.save(language);
+        return new SuccessResult("Dil eklendi.");
     }
 
     @Override
-    public Result addCity(City city) {
-        cityDao.save(city);
-        return new SuccessResult();
+    public DataResult<List<Language>> getAll() {
+        return new SuccessDataResult<>(this.languageDao.findAll());
     }
-
-    @Override
-    public DataResult<List<City>> getAll() {
-        return new SuccessDataResult<>(cityDao.findAll());
-    }
- 
+    
 }

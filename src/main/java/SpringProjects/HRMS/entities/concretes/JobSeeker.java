@@ -6,7 +6,11 @@ package SpringProjects.HRMS.entities.concretes;
 
 import SpringProjects.HRMS.entities.abstracts.WorkableUser;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -20,19 +24,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NaturalIdCache;
 
 /**
  *
  * @author yasir
  */
-@EqualsAndHashCode(callSuper =false)
 @Data
 @Entity
 @Table(name="job_seekers")
 @AllArgsConstructor
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name="workable_user_id")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","schoolHistory","experiences"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","technologies","positions","schoolHistory","experiences","socialMediaAccounts"})
+@EqualsAndHashCode(callSuper = true)
 public class JobSeeker extends WorkableUser {
     @Column(name="mernis_confirmed")
     private boolean isMernisConfirmed;
@@ -58,8 +65,11 @@ public class JobSeeker extends WorkableUser {
     private List<JobSeekerSchool> schoolHistory;
     
     @OneToMany(mappedBy = "jobSeeker")
-    List<JobSeekerLanguage> languages;
+    private List<JobSeekerLanguage> languages;
     
     @OneToMany(mappedBy = "jobSeeker")
-    List<JobSeekerExperience> experiences;
+    private List<JobSeekerExperience> experiences;
+    
+    @OneToMany(mappedBy = "jobSeeker")
+    private List<JobSeekerSocialMediaAccount> socialMediaAccounts;
 }

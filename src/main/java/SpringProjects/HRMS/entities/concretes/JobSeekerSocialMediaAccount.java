@@ -4,14 +4,14 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,25 +22,25 @@ import lombok.NoArgsConstructor;
  * @author yasir
  */
 @Entity
+@Table(name="social_media_accounts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="job_seekers_languages")
-public class JobSeekerLanguage {
-    @EmbeddedId
-    private JobSeekerLanguageKey id;
+@IdClass(JobSeekerSocialMediaAccountId.class)
+public class JobSeekerSocialMediaAccount {
     
+    @Id
     @ManyToOne
-    @MapsId("jobSeekerId")
-    @JoinColumn(name="job_seeker_id")
+    @JoinColumn(name = "job_seeker_id", referencedColumnName = "workable_user_id")
+    @JsonIgnore
     private JobSeeker jobSeeker;
     
+    @Id
     @ManyToOne
-    @MapsId("languageId")
-    @JoinColumn(name="language_id")
-    private Language language;
+    @JoinColumn(name = "social_media_id", referencedColumnName = "id")
+    private SocialMedia socialMedia;
     
-    @ManyToOne
-    @JoinColumn(name="language_level_id")
-    private LanguageLevel languageLevel;
+    @Column(name="url")
+    private String url;
+    
 }

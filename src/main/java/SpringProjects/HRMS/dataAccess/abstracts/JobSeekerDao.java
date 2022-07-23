@@ -5,6 +5,7 @@
 package SpringProjects.HRMS.dataAccess.abstracts;
 
 import SpringProjects.HRMS.entities.concretes.JobSeeker;
+import SpringProjects.HRMS.entities.concretes.JobSeekerSchool;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,8 +14,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author yasir
  */
 public interface JobSeekerDao extends JpaRepository<JobSeeker, Integer> {
-    public boolean existsJobPositionsByTckn(String tckn);
-    public boolean existsJobPositionsByEmail(String email);
+    public boolean existsJobSeekersByTckn(String tckn);
+    public boolean existsJobSeekersByEmail(String email);
     public boolean existsById(Long id);
     public Optional<JobSeeker> getById(Long id);
+
 }

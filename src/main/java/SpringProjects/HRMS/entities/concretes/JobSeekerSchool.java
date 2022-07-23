@@ -4,6 +4,7 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,6 +41,7 @@ public class JobSeekerSchool {
     @JoinColumn(name="department_id")
     private SchoolDepartment schoolDepartment;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="job_seeker_id")
     private JobSeeker jobSeeker;

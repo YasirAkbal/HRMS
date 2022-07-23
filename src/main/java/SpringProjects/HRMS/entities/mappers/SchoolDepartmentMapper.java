@@ -4,7 +4,7 @@
  */
 package SpringProjects.HRMS.entities.mappers;
 
-import SpringProjects.HRMS.entities.concretes.RegisteredCompany;
+import SpringProjects.HRMS.entities.concretes.SchoolDepartment;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -13,8 +13,8 @@ import org.mapstruct.factory.Mappers;
  * @author yasir
  */
 @Mapper
-public interface RegisteredCompanyMapper {
-    RegisteredCompanyMapper INSTANCE = Mappers.getMapper(RegisteredCompanyMapper.class);
+public interface SchoolDepartmentMapper {
+    SchoolDepartmentMapper INSTANCE = Mappers.getMapper(SchoolDepartmentMapper.class);
     
-    public RegisteredCompany toEntity(Integer id);
+    public SchoolDepartment toEntity(Integer id);
 }

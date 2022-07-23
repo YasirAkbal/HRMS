@@ -42,7 +42,7 @@ public class JobSeekerExperienceManager implements JobSeekerExperienceService {
         if(!jobSeekerDao.existsById(jobSeekerId))
             return new ErrorDataResult<>("Geçersiz job seeker id'si.");
         
-        return new SuccessDataResult<>(this.jobSeekerExperienceDao.getByJobSeeker_Id(jobSeekerId));
+        return new SuccessDataResult<>(this.jobSeekerExperienceDao.getByJobSeeker_IdOrderByStartDateDesc(jobSeekerId));
     }
 
     @Override
@@ -58,7 +58,7 @@ public class JobSeekerExperienceManager implements JobSeekerExperienceService {
         if(!jobPositionDao.existsById(jobPositionId))
             return new ErrorDataResult<>("Geçersiz job position id'si.");
         
-        return new SuccessDataResult<>(this.jobSeekerExperienceDao.getByJobSeeker_Id(jobPositionId));
+        return new SuccessDataResult<>(this.jobSeekerExperienceDao.getByJobPosition_Id(jobPositionId));
     }
     
 }

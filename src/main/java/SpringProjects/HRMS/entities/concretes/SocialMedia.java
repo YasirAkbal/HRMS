@@ -4,7 +4,6 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import javax.persistence.Column;
@@ -22,22 +21,23 @@ import lombok.NoArgsConstructor;
  *
  * @author yasir
  */
-@Table(name="school_departments")
 @Entity
+@Table(name="social_media")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobSeekerSchoolHistory"})
-public class SchoolDepartment {
+@AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","socialMediaAccounts"})
+public class SocialMedia {
+    
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private int id;
+    private short id;
     
     @Column(name="name")
     private String name;
     
-    @JsonIgnore
-    @OneToMany(mappedBy="schoolDepartment")
-    private List<JobSeekerSchool> jobSeekerSchoolHistory;
+    @OneToMany(mappedBy = "socialMedia")
+    private List<JobSeekerSocialMediaAccount> socialMediaAccounts;
+    
 }

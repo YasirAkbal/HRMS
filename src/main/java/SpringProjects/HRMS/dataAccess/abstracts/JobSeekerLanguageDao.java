@@ -5,6 +5,7 @@
 package SpringProjects.HRMS.dataAccess.abstracts;
 
 import SpringProjects.HRMS.entities.concretes.JobSeekerLanguage;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author yasir
  */
 public interface JobSeekerLanguageDao extends JpaRepository<JobSeekerLanguage, Integer> {
-    
+    public List<JobSeekerLanguage> getByJobSeeker_Id(long jobSeekerId);
 }

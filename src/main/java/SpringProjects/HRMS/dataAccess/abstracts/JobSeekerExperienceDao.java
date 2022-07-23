@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author yasir
  */
 public interface JobSeekerExperienceDao extends JpaRepository<JobSeekerExperience, Integer> {
-    public List<JobSeekerExperience> getByJobSeeker_Id(long jobSeekerId);
+    public List<JobSeekerExperience> getByJobSeeker_IdOrderByStartDateDesc(long jobSeekerId);
     public List<JobSeekerExperience> getByCompany_Id(long companyId);
     public List<JobSeekerExperience> getByJobPosition_Id(long jobPositionId);
 }

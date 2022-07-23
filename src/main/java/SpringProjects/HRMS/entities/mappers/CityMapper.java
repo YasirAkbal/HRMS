@@ -17,5 +17,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface CityMapper {
     CityMapper INSTANCE = Mappers.getMapper(CityMapper.class);
-    public City toEntity(Short id);
+    
+    public City toEntity(Integer id);
 }

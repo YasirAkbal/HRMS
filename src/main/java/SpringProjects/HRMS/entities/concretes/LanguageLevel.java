@@ -30,11 +30,11 @@ public class LanguageLevel {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private int id;
+    private short id;
     
     @Column(name="name")
     private String name;
     
-    /*@OneToMany(mappedBy="languageLevel")
-    private List<JobSeekerLanguage> jobSeekerLanguages;*/
+    @OneToMany(mappedBy="languageLevel")
+    private List<JobSeekerLanguage> jobSeekerLanguages;
 }

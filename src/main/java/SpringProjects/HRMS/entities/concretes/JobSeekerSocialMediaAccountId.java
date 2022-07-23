@@ -6,30 +6,20 @@ package SpringProjects.HRMS.entities.concretes;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author yasir
  */
-@Embeddable
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class JobSeekerLanguageKey implements Serializable {
-    @Column(name="job_seeker_id")
-    private long jobSeekerId;
+public class JobSeekerSocialMediaAccountId implements Serializable {
     
-    @Column(name="language_id")
-    private int languageId;
+    private long jobSeeker;
+    private short socialMedia;
+    
     
     @Override
     public int hashCode() {
-        return Objects.hash(jobSeekerId,languageId);
+        return Objects.hash(jobSeeker,socialMedia);
     }
 
     @Override
@@ -43,10 +33,10 @@ public class JobSeekerLanguageKey implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final JobSeekerLanguageKey other = (JobSeekerLanguageKey) obj;
-        if (this.jobSeekerId != other.jobSeekerId) {
+        final JobSeekerSocialMediaAccountId other = (JobSeekerSocialMediaAccountId) obj;
+        if (this.jobSeeker != other.jobSeeker) {
             return false;
         }
-        return this.languageId == other.languageId;
-    } 
+        return this.socialMedia == other.socialMedia;
+    }
 }
