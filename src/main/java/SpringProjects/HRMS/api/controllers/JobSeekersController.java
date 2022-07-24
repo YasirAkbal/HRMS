@@ -21,8 +21,11 @@ import SpringProjects.HRMS.entities.mappers.JobSeekerRegisterMapper;
 import SpringProjects.HRMS.entities.mappers.JobSeekerSchoolMapper;
 import SpringProjects.HRMS.entities.mappers.JobSeekerSocialMediaAccountMapper;
 import java.util.List;
+import javax.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,76 +56,110 @@ public class JobSeekersController {
     }
     
     @PostMapping("/register")
-    public Result addJobSeeker(@RequestBody JobSeekerRegisterDto dto) {
+    public ResponseEntity<?> addJobSeeker(@RequestBody @Valid JobSeekerRegisterDto dto) {
         JobSeeker jobSeeker = jobSeekerRegisterMapper.convertToEntity(dto);
-        return jobSeekerService.addJobSeeker(jobSeeker);
+        
+        Result result = jobSeekerService.addJobSeeker(jobSeeker);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
     @GetMapping("/getall")
-    public DataResult<List<JobSeeker>> getAll() {
-        return jobSeekerService.getAll();
+    public ResponseEntity<DataResult<List<JobSeeker>>> getAll() {
+        return ResponseEntity.ok(jobSeekerService.getAll());
     }
     
     @GetMapping("/getAllExperiencesByJobSeekerId")
-    public DataResult<List<JobSeekerExperience>> getAllExperiencesByJobSeekerId(@RequestParam Long jobSeekerId) {
-        return jobSeekerService.getAllExperiencesByJobSeekerId(jobSeekerId);
+    public ResponseEntity<DataResult<List<JobSeekerExperience>>> getAllExperiencesByJobSeekerId(@RequestParam Long jobSeekerId) {
+        return ResponseEntity.ok(jobSeekerService.getAllExperiencesByJobSeekerId(jobSeekerId));
     }
     
     @PostMapping("/addSchool")
-    public Result addSchool(@RequestBody JobSeekerSchoolAddDto dto) {
+    public ResponseEntity<?> addSchool(@RequestBody @Valid JobSeekerSchoolAddDto dto) {
         JobSeekerSchool jobSeekerSchool = jobSeekerSchoolMapper.toEntity(dto);
-        return this.jobSeekerService.addSchool(jobSeekerSchool);
+        
+        Result result = this.jobSeekerService.addSchool(jobSeekerSchool);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @PostMapping("/addSchools")
-    public Result addSchools(@RequestBody List<JobSeekerSchoolAddDto> dtos) {
+    public ResponseEntity<?> addSchools(@RequestBody List<@Valid JobSeekerSchoolAddDto> dtos) {
         List<JobSeekerSchool> jobSeekerSchools = this.jobSeekerSchoolMapper.toEntity(dtos);
-        return this.jobSeekerService.addSchools(jobSeekerSchools);
-    } 
+        
+        Result result = this.jobSeekerService.addSchools(jobSeekerSchools);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
   
     @GetMapping("/getSchoolHistory")
-    public DataResult<List<JobSeekerSchool>> getSchoolHistory(@RequestParam long jobSeekerId) {
-        return this.jobSeekerService.getSchoolHistory(jobSeekerId);
+    public ResponseEntity<DataResult<List<JobSeekerSchool>>> getSchoolHistory(@RequestParam long jobSeekerId) {
+        return ResponseEntity.ok(this.jobSeekerService.getSchoolHistory(jobSeekerId));
     }
     
     @GetMapping("/getOrderedSchoolHistory") 
-    public DataResult<List<JobSeekerSchool>> getOrderedSchoolHistory(@RequestParam long jobSeekerId) {
-        return this.jobSeekerService.getOrderedSchoolHistory(jobSeekerId);
+    public ResponseEntity<DataResult<List<JobSeekerSchool>>> getOrderedSchoolHistory(@RequestParam long jobSeekerId) {
+        return ResponseEntity.ok(this.jobSeekerService.getOrderedSchoolHistory(jobSeekerId));
     }
     
     @PostMapping("/addExperience")
-    public Result addExperience(@RequestBody List<AddJobSeekerExperienceDto> dto) {
+    public ResponseEntity<?> addExperience(@RequestBody List<@Valid AddJobSeekerExperienceDto> dto) {
         List<JobSeekerExperience> jobSeekerExperience = this.jobSeekerExperienceMapper.toEntity(dto);
-        return this.jobSeekerService.addExperience(jobSeekerExperience);
+        
+        Result result = this.jobSeekerService.addExperience(jobSeekerExperience);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
     @GetMapping("/getByJobSeekerIdOrderByStartDateDesc")
-    public DataResult<List<JobSeekerExperience>> getByJobSeeker_IdOrderByStartDateDesc(long jobSeekerId) {
-        return this.jobSeekerService.getByJobSeeker_IdOrderByStartDateDesc(jobSeekerId);
+    public ResponseEntity<DataResult<List<JobSeekerExperience>>> getByJobSeeker_IdOrderByStartDateDesc(@RequestParam long jobSeekerId) {
+        return ResponseEntity.ok(this.jobSeekerService.getByJobSeeker_IdOrderByStartDateDesc(jobSeekerId));
     }
     
     @PostMapping("/addJobSeekerLanguage")
-    public Result addJobSeekerLanguage(AddJobSeekerLanguageDto dto) {
+    public ResponseEntity<?> addJobSeekerLanguage(@RequestBody @Valid AddJobSeekerLanguageDto dto) {
         JobSeekerLanguage jobSeekerLanguage = this.jobSeekerLanguageMapper.toEntity(dto);
-        System.out.println("debug pointttttttt");
-        System.out.println(jobSeekerLanguage.getJobSeeker().getId());
-    System.out.println(jobSeekerLanguage.getJobSeeker().getEmail());
-        return this.jobSeekerService.addJobSeekerLanguage(jobSeekerLanguage);
+        
+        Result result = this.jobSeekerService.addJobSeekerLanguage(jobSeekerLanguage);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
+    
     @GetMapping("/getJobSeekerLanguagesByJobSeekerId")
-    public DataResult<List<JobSeekerLanguage>> getJobSeekerLanguagesByJobSeekerId(long jobSeekerId) {
-        return this.jobSeekerService.getJobSeekerLanguagesByJobSeekerId(jobSeekerId);
+    public ResponseEntity<DataResult<List<JobSeekerLanguage>>> getJobSeekerLanguagesByJobSeekerId(@RequestParam long jobSeekerId) {
+        return ResponseEntity.ok(this.jobSeekerService.getJobSeekerLanguagesByJobSeekerId(jobSeekerId));
     }
     
     @PostMapping("/addSocialMediaAccount")
-    public Result addSocialMediaAccount(@RequestBody AddJobSeekerSocialMediaAccountDto dto) {
+    public ResponseEntity<?> addSocialMediaAccount(@RequestBody @Valid AddJobSeekerSocialMediaAccountDto dto) {
         JobSeekerSocialMediaAccount entity = this.jobSeekerSocialMediaAccountMapper.toEntity(dto);
-        return this.jobSeekerService.addSocialMediaAccount(entity);
+        
+        Result result = this.jobSeekerService.addSocialMediaAccount(entity);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
     @GetMapping("/getAllSocialMediaAccounts")
-    public DataResult<List<JobSeekerSocialMediaAccount>> getAllSocialMediaAccounts(@RequestParam long jobSeekerId) {
-        return this.jobSeekerService.getAllSocialMediaAccounts(jobSeekerId);
+    public ResponseEntity<DataResult<List<JobSeekerSocialMediaAccount>>> getAllSocialMediaAccounts(@RequestParam long jobSeekerId) {
+        return ResponseEntity.ok(this.jobSeekerService.getAllSocialMediaAccounts(jobSeekerId));
     }
 }

@@ -8,7 +8,10 @@ import SpringProjects.HRMS.business.abstracts.JobPositionService;
 import SpringProjects.HRMS.entities.concretes.JobPosition;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,17 +36,22 @@ public class JobPositionsController {
     }
     
     @GetMapping("/getall")
-    public DataResult<List<JobPosition>> getAll() {
-        return this.jobPositionService.getAll();
+    public ResponseEntity<DataResult<List<JobPosition>>> getAll() {
+        return ResponseEntity.ok(this.jobPositionService.getAll());
     }
     
     @GetMapping("/findbyid")
-    public DataResult<JobPosition> getById(long id) {
-        return this.jobPositionService.findById(id);
+    public ResponseEntity<DataResult<JobPosition>> getById(long id) {
+        return ResponseEntity.ok(this.jobPositionService.findById(id));
     }
     
     @PostMapping("/add")
-    public Result addJobPosition(@RequestBody JobPosition jobPosition) {
-        return this.jobPositionService.addJobPosition(jobPosition);
+    public ResponseEntity<?> addJobPosition(@RequestBody @Valid JobPosition jobPosition) {
+        Result result = this.jobPositionService.addJobPosition(jobPosition);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 }

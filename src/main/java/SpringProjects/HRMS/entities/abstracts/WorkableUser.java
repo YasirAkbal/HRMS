@@ -11,6 +11,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,14 +31,21 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public abstract class WorkableUser extends User {
     @Column(name="name")
+    @NotNull 
+    @NotBlank
     private String name;
     
     @Column(name="surname")
+    @NotNull 
+    @NotBlank
     private String surname;
     
     @Column(name="tckn")
+    @NotNull 
+    @NotBlank
     private String tckn;
     
     @Column(name="birth_date")
+    @NotNull 
     private Date birthDate;
 }

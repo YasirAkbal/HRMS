@@ -4,6 +4,7 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import javax.persistence.Column;
@@ -13,6 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,11 +39,16 @@ public class City {
     private int id;
     
     @Column(name="name")
+    @NotNull 
+    @NotBlank
+    @Size(min=3)
     private String name;
     
+    @JsonIgnore
     @OneToMany(mappedBy="city")
     List<JobAdvertisement> jobAdvertisements;
     
+    @JsonIgnore
     @OneToMany(mappedBy="city")
     List<School> schools;
 }

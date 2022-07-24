@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package SpringProjects.HRMS.entities.abstracts;
+package SpringProjects.HRMS.entities.concretes;
 
 import SpringProjects.HRMS.entities.concretes.Employer;
 import SpringProjects.HRMS.entities.concretes.JobSeekerExperience;
@@ -20,6 +20,11 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,12 +47,18 @@ public class Company implements Serializable {
     private int id;
     
     @Column(name="name")
+    @NotNull 
+    @NotBlank
+    @Size(min=6)
     private String companyName;
     
     @Column(name="website")
     private String website;
     
     @Column(name="phone")
+    @NotNull 
+    @NotBlank
+    @Pattern(regexp = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")
     private String phone;
     
     @JsonIgnore

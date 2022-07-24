@@ -4,7 +4,6 @@
  */
 package SpringProjects.HRMS.entities.concretes;
 
-import SpringProjects.HRMS.entities.abstracts.Company;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;

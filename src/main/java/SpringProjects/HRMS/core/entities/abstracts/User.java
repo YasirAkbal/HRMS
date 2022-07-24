@@ -19,6 +19,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,15 +40,21 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="users")
 public abstract class User implements Serializable {
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //burada bug var, düzelteceğim
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name="id")
     private Long id;
     
     @Column(name="email")
+    @Email
+    @NotNull 
+    @NotBlank
     private String email;
     
     @Column(name="password")
+    @NotNull 
+    @NotBlank
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$") //min 8, en az 1 büyük, 1 küçük, 1 sayı
     private String password;
     
     @Column(name="mail_confirmed")

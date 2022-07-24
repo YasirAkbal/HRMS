@@ -7,7 +7,10 @@ package SpringProjects.HRMS.api.controllers;
 import SpringProjects.HRMS.business.abstracts.SchoolDepartmentService;
 import SpringProjects.HRMS.entities.concretes.SchoolDepartment;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,12 +34,17 @@ public class SchoolDepartmentsController {
     }
     
     @PostMapping("add")
-    public Result add(@RequestBody SchoolDepartment schoolDepartment) {
-        return this.schoolDepartmentService.add(schoolDepartment);
+    public ResponseEntity<?> add(@RequestBody @Valid SchoolDepartment schoolDepartment) {
+        Result result = this.schoolDepartmentService.add(schoolDepartment);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
     @GetMapping("getAll")
-    public DataResult<List<SchoolDepartment>> getAll() {
-        return this.schoolDepartmentService.getAll();
+    public ResponseEntity<DataResult<List<SchoolDepartment>>> getAll() {
+        return ResponseEntity.ok(this.schoolDepartmentService.getAll());
     }
 }

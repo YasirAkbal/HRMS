@@ -18,6 +18,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,6 +54,9 @@ public class JobAdvertisement {
     private Employer employer;
     
     @Column(name="title")
+    @NotNull 
+    @NotBlank
+    @Size(min=6)
     private String title;
     
     @Column(name="definition")

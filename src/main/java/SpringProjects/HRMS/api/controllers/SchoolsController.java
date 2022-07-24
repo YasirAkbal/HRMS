@@ -9,8 +9,11 @@ import SpringProjects.HRMS.entities.concretes.School;
 import SpringProjects.HRMS.entities.dtos.SchoolRegisterDto;
 import SpringProjects.HRMS.entities.mappers.SchoolMapper;
 import java.util.List;
+import javax.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,13 +39,19 @@ public class SchoolsController {
     }
     
     @PostMapping("add")
-    public Result add(@RequestBody SchoolRegisterDto dto) {
+    public ResponseEntity<?> add(@RequestBody @Valid SchoolRegisterDto dto) {
         School school = schoolMapper.toEntity(dto);
-        return this.schoolService.add(school);
+        
+        Result result = this.schoolService.add(school);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
     @GetMapping("getAll")
-    public DataResult<List<School>> getAll() {
-        return this.schoolService.getAll();
+    public ResponseEntity<DataResult<List<School>>> getAll() {
+        return ResponseEntity.ok(this.schoolService.getAll());
     }
 }

@@ -17,6 +17,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,6 +42,9 @@ public class JobPosition {
     private long id;
     
     @Column(name="name")
+    @NotNull 
+    @NotBlank
+    @Size(min=6)
     private String name;
     
     @JsonIgnore

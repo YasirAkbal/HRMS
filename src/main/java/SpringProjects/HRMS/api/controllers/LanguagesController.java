@@ -7,7 +7,10 @@ package SpringProjects.HRMS.api.controllers;
 import SpringProjects.HRMS.business.abstracts.LanguageService;
 import SpringProjects.HRMS.entities.concretes.Language;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,13 +35,18 @@ public class LanguagesController {
     }
     
     @PostMapping("add")
-    public Result add(@RequestBody Language language) {
-        return this.languageService.add(language);
+    public ResponseEntity<?> add(@RequestBody @Valid Language language) {
+        Result result = this.languageService.add(language);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
     @GetMapping("getAll")
-    public DataResult<List<Language>> getAll() {
-        return this.languageService.getAll();
+    public ResponseEntity<DataResult<List<Language>>> getAll() {
+        return ResponseEntity.ok(this.languageService.getAll());
     }
     
 }

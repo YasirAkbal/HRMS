@@ -4,7 +4,7 @@
  */
 package SpringProjects.HRMS.entities.mappers;
 
-import SpringProjects.HRMS.entities.abstracts.Company;
+import SpringProjects.HRMS.entities.concretes.Company;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -10,8 +10,11 @@ import SpringProjects.HRMS.entities.concretes.JobPosition;
 import SpringProjects.HRMS.entities.dtos.JobAdvertisementCreateDto;
 import SpringProjects.HRMS.entities.mappers.JobAdvertisementMapper;
 import java.util.List;
+import javax.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,28 +42,44 @@ public class JobAdvertisementsController {
     }
     
     @GetMapping("getActives")
-    public DataResult<List<JobAdvertisement>> getByIsActiveTrue() {
-        return jobAdvertisementService.getByIsActiveTrue();
+    public ResponseEntity<DataResult<List<JobAdvertisement>>> getByIsActiveTrue() {
+        return ResponseEntity.ok(jobAdvertisementService.getByIsActiveTrue());
     }
 
     @GetMapping("getOrderedByDateDesc")
-    public DataResult<List<JobAdvertisement>> getAllByOrderByCreateDateDesc() {
-        return jobAdvertisementService.getAllByOrderByCreateDateDesc();
+    public ResponseEntity<DataResult<List<JobAdvertisement>>> getAllByOrderByCreateDateDesc() {
+        return ResponseEntity.ok(jobAdvertisementService.getAllByOrderByCreateDateDesc());
     }
 
     @GetMapping("getByEmployer")
-    public DataResult<List<JobAdvertisement>> getByEmployer_EmployerId(@RequestParam long employerId) {
-        return jobAdvertisementService.getByEmployer_EmployerId(employerId);
+    public ResponseEntity<?> getByEmployer_EmployerId(@RequestParam long employerId) {
+        DataResult<List<JobAdvertisement>> result = jobAdvertisementService.getByEmployer_EmployerId(employerId);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("add")
-    public Result addJobAdvertisement(@RequestBody JobAdvertisementCreateDto dto) {
+    public ResponseEntity<?> addJobAdvertisement(@Valid @RequestBody JobAdvertisementCreateDto dto) {
         JobAdvertisement entity = jobAdvertisementMapper.convertToEntity(dto);
-        return jobAdvertisementService.addJobAdvertisement(entity);
+        
+        Result result = jobAdvertisementService.addJobAdvertisement(entity);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
     @GetMapping("setActiveStatusFalse")
-    public Result setActiveStatusFalse(@RequestParam long id) {
-        return jobAdvertisementService.setActiveStatusFalse(id);
+    public ResponseEntity<?> setActiveStatusFalse(@RequestParam long id) {
+        Result result = jobAdvertisementService.setActiveStatusFalse(id);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return ResponseEntity.ok(result);
     }
 }

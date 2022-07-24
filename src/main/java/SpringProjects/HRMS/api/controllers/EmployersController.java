@@ -22,6 +22,9 @@ import springprojects.HRMS.core.utilities.results.DataResult;
 import springprojects.HRMS.core.utilities.results.Result;
 import springprojects.HRMS.core.utilities.results.SuccessDataResult;
 import SpringProjects.HRMS.entities.mappers.EmployerGetWithCompanyIdMapper;
+import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import springprojects.HRMS.core.utilities.results.ErrorDataResult;
 
 /**
@@ -41,27 +44,44 @@ public class EmployersController {
     }
     
     @GetMapping("/getAll")
-    public DataResult<List<Employer>> getAll() {
-        return this.employerService.getAll();
+    public ResponseEntity<?> getAll() {
+        DataResult<List<Employer>> result = this.employerService.getAll();
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return ResponseEntity.ok(result);
     }
     
     @GetMapping("/getAllWithCompanyId")
-    public DataResult<List<EmployerGetWithCompanyIdDto>> getAllWithCompanyId() {
+    public ResponseEntity<DataResult<List<EmployerGetWithCompanyIdDto>>> getAllWithCompanyId() {
         DataResult<List<Employer>> result = this.employerService.getAll();
-        if(!result.isSuccess())
-            return new ErrorDataResult<>(result.getMessage());
         
-        return new SuccessDataResult<>(this.employerGetWithCompanyIdMapper.convertToDto(result.getData()));
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(new ErrorDataResult<>(result.getMessage()));
+        
+        return ResponseEntity.ok(new SuccessDataResult<>(this.employerGetWithCompanyIdMapper.convertToDto(result.getData())));
     }
     
     @PostMapping("/addEmployerWithNewCompany")
-    public Result addEmployerWithNewCompany(@RequestBody Employer employer) {
-        return this.employerService.addEmployerWithNewCompany(employer);
+    public ResponseEntity<?> addEmployerWithNewCompany(@Valid @RequestBody Employer employer) {
+        Result result = this.employerService.addEmployerWithNewCompany(employer);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
     @PostMapping("/addEmployerWithExistingCompany")
-    public Result addEmployerWithExistingCompany(@RequestBody EmployerCreateWithExistingCompanyDto employerDto) {
+    public ResponseEntity<?> addEmployerWithExistingCompany(@Valid @RequestBody EmployerCreateWithExistingCompanyDto employerDto) {
         Employer employer = employerCreateWithExistingCompanyMapper.convertToEntity(employerDto);
-        return this.employerService.addEmployerWithExistingCompany(employer);
+        
+        Result result = this.employerService.addEmployerWithExistingCompany(employer);
+        
+        if(!result.isSuccess())
+            return ResponseEntity.badRequest().body(result);
+        
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 }

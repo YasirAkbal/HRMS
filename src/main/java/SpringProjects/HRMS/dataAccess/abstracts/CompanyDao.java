@@ -4,7 +4,7 @@
  */
 package SpringProjects.HRMS.dataAccess.abstracts;
 
-import SpringProjects.HRMS.entities.abstracts.Company;
+import SpringProjects.HRMS.entities.concretes.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -5,9 +5,12 @@
 package SpringProjects.HRMS.entities.dtos;
 
 import java.util.Date;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 /**
  *
@@ -24,6 +27,8 @@ public class JobSeekerSchoolAddDto {
     
     private int schoolDepartmentId;
     
+    @NotNull 
+    @NotBlank
     private Date startDate;
     
     private Date graduateDate;

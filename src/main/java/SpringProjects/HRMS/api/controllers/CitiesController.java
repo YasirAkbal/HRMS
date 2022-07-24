@@ -7,7 +7,10 @@ package SpringProjects.HRMS.api.controllers;
 import SpringProjects.HRMS.business.abstracts.CityService;
 import SpringProjects.HRMS.entities.concretes.City;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,12 +34,22 @@ public class CitiesController {
     }
     
     @PostMapping("add")
-    public Result addCity(@RequestBody City city) {
-        return cityService.addCity(city);
+    public ResponseEntity<?> addCity(@Valid @RequestBody City city) {
+        Result result = this.cityService.addCity(city);
+        
+        if(!result.isSuccess()) 
+            return ResponseEntity.badRequest().body(result);
+    
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
     
     @GetMapping("getAll")
-    public DataResult<List<City>> getAll() {
-        return cityService.getAll();
+    public ResponseEntity<?> getAll() {
+        DataResult<List<City>> result = this.cityService.getAll();
+        
+        if(!result.isSuccess()) 
+            return ResponseEntity.badRequest().body(result.getMessage());
+        
+        return ResponseEntity.ok(result);
     }
 }
